@@ -56,7 +56,7 @@ function chrtLabel(text) {
       // console.log('getPosition', position, field)
       if(isNull(position[field])) {
         if(!isNull(this.parentNode._data) && this.parentNode._data.length) {
-          console.log('--->', this.parentNode._data)
+          // console.log('--->', this.parentNode._data)
           return this.parentNode._data[this.parentNode._data.length - 1][field];
         } else {
           return 0;
@@ -67,12 +67,10 @@ function chrtLabel(text) {
 
     if(scales && scales['x']) {
       const x = scales['x'](getPosition(this._position)('x')) + this._margins.left - this._margins.right;
+      // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
       const y = scales['y'](getPosition(this._position)('y')) + this._margins.top - this._margins.bottom;
-
-
-
-      this.g.setAttribute('transform',`translate(${x},${y})`)
+      this.g.setAttribute('transform',`translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`)
     }
 
     let label = this.g.querySelector('text');
