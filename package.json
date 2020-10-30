@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "description": "Label for XY charts component for Chrt",
   "main": "dist/chrt-label.js",
-  "module": "src/index.j",
+  "module": "dist/chrt-label.esm.js",
   "watch": {
     "build": {
       "patterns": [
@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/chrt/exploration.git"
+    "url": "git+ssh://git@gitlab.com/chrt/chrt-label.git"
   },
   "author": "chrt",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/chrt/exploration/issues"
+    "url": "https://gitlab.com/chrt/chrt-label/issues"
   },
   "homepage": "chrt.io",
   "dependencies": {

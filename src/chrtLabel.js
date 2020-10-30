@@ -41,7 +41,7 @@ function chrtLabel(text) {
       this.g = create('g');
       this.parentNode.g.appendChild(this.g);
     }
-    
+
 
     const { scales, _css } = this.parentNode.parentNode;
 
@@ -103,4 +103,7 @@ chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   margins,
 });
 
-export default chrtLabel;
+// export default chrtLabel;
+export default function(text) {
+  return new chrtLabel(text);
+}
