@@ -1,7 +1,7 @@
 import { isNull } from '~/helpers';
 export default function position(coords) {
   if(isNull(coords)) {
-    return this;
+    return this._position;
   }
 
   if (typeof coords === 'function') {
@@ -14,9 +14,15 @@ export default function position(coords) {
 }
 
 export function top(y) {
+  if(isNull(y)) {
+    return this.position().y
+  }
   return position.call(this, {y})
 }
 
 export function left(x) {
+  if(isNull(x)) {
+    return this.position().x
+  }
   return position.call(this, {x})
 }

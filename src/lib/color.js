@@ -1,5 +1,7 @@
+import { isNull } from '~/helpers';
+
 export default function color(value) {
-  if(!value) {
+  if(isNull(value)) {
     return this._fill;
   }
 

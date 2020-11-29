@@ -1,7 +1,7 @@
 import { isNull } from '~/helpers';
 export default function alignment(align) {
   if(isNull(align)) {
-    return this;
+    return this._alignment;
   }
 
   if (typeof coords === 'function') {
@@ -14,6 +14,9 @@ export default function alignment(align) {
 }
 
 export function valign(position) {
+  if(isNull(position)) {
+    return this._alignment.vertical;
+  }
   let vertical = this._alignment.vertical;
   switch (position) {
     case 'top':
@@ -29,6 +32,9 @@ export function valign(position) {
 }
 
 export function align(position) {
+  if(isNull(position)) {
+    return this._alignment.horizontal;
+  }
   let horizontal = this._alignment.horizontal;
   switch (position) {
     case 'right':
