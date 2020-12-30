@@ -65,11 +65,11 @@ function chrtLabel(text) {
       return position[field];
     };
 
-    if(scales && scales['x']) {
-      const x = scales['x'](getPosition(this._position)('x')) + this._margins.left - this._margins.right;
+    if(scales && scales.x[this.parentNode.scales.x]) {
+      const x = scales.x[this.parentNode.scales.x](getPosition(this._position)(this.parentNode.fields.x)) + this._margins.left - this._margins.right;
       // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
-      const y = scales['y'](getPosition(this._position)('y')) + this._margins.top - this._margins.bottom;
+      const y = scales.y[this.parentNode.scales.y](getPosition(this._position)(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom;
       this.g.setAttribute('transform',`translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`)
     }
 
