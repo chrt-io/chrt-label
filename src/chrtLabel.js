@@ -33,6 +33,7 @@ function chrtLabel(text) {
     left: 0,
   }
   this._offsets = [0,0];
+  this._classNames = ['chrt-label'];
 
   this.draw = () => {
     if (!this.parentNode.parentNode.scales) {
@@ -43,16 +44,11 @@ function chrtLabel(text) {
       this.g = create('g');
       this.parentNode.g.appendChild(this.g);
     }
+    this.g.setAttribute('id', this.id())
 
 
-    const { scales, _css } = this.parentNode.parentNode;
-
-    // console.log('chrtLabel parent', this.parentNode.parentNode)
-
-    if(!isNull(_css)) {
-      this.g.classList.remove('chrt-label');
-      this.g.classList.add('chrt-label');
-    }
+    const { scales } = this.parentNode.parentNode;
+    this._classNames.forEach(d => this.g.classList.add(d));
 
     const getPosition = position => (field) => {
       // console.log('getPosition', position, field)
