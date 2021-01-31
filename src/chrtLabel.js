@@ -8,6 +8,7 @@ import {
   align,
   valign,
   margins,
+  offset,
 } from './lib';
 import { createSVG as create } from '~/layout';
 
@@ -31,6 +32,7 @@ function chrtLabel(text) {
     bottom: 0,
     left: 0,
   }
+  this._offsets = [0,0];
 
   this.draw = () => {
     if (!this.parentNode.parentNode.scales) {
@@ -66,10 +68,10 @@ function chrtLabel(text) {
     };
 
     if(scales && scales.x[this.parentNode.scales.x]) {
-      const x = scales.x[this.parentNode.scales.x](getPosition(this._position)(this.parentNode.fields.x)) + this._margins.left - this._margins.right;
+      const x = scales.x[this.parentNode.scales.x](getPosition(this._position)(this.parentNode.fields.x)) + this._margins.left - this._margins.right + this._offsets[0];
       // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
-      const y = scales.y[this.parentNode.scales.y](getPosition(this._position)(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom;
+      const y = scales.y[this.parentNode.scales.y](getPosition(this._position)(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom + this._offsets[1];
       this.g.setAttribute('transform',`translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`)
     }
 
@@ -101,6 +103,7 @@ chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   align,
   valign,
   margins,
+  offset,
 });
 
 // export default chrtLabel;
