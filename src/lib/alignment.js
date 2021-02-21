@@ -25,9 +25,11 @@ export function valign(position) {
     case 'bottom':
       vertical = '1em'
     break;
+    case 'middle':
     default:
       vertical = '0.25em'
   }
+  this._vposition = position;
   return alignment.call(this, {vertical})
 }
 
@@ -37,14 +39,20 @@ export function align(position) {
   }
   let horizontal = this._alignment.horizontal;
   switch (position) {
+    case 'end':
     case 'right':
+      this._alignment.horizontal = 'end';
       horizontal = 'end'
     break;
+    case 'middle':
     case 'center':
+      this._alignment.horizontal = 'middle';
       horizontal = 'middle'
     break;
+    case 'left':
     default:
       horizontal = 'start'
   }
+  this._hposition = position;
   return alignment.call(this, {horizontal})
 }
