@@ -22,6 +22,8 @@ function chrtLabels() {
     horizontal: 'end',
     vertical: 'middle',
   };
+  this._hposition = 'middle';
+  this._vposition = 'top';
 
   // const isOutside = () => {
   //   return this.attrs['outside'];
@@ -45,18 +47,20 @@ function chrtLabels() {
       this.g = create('g');
       this.parentNode.g.appendChild(this.g);
     }
+    const isBars = this.parentNode.constructor.name === 'chrtBars';
 
     data.forEach((label, i) => {
 
       // console.log(this._alignment.horizontal, label);
+      // console.log(this.parentNode.fields.x0)
+      // console.log(this.parentNode.getXScale())
       let top = label[this.parentNode.fields.y];
-      const x0 = !isNull(label[this.parentNode.fields.x0])
+      let x0 = !isNull(label[this.parentNode.fields.x0])
         ? label[this.parentNode.fields.x0]
         : this.parentNode.getXScale().domain[0];
       let left = label[this.parentNode.fields.x] + x0;
       switch (this._alignment.horizontal) {
         case 'start':
-          left = x0;
           break;
         case 'end':
           left = label[this.parentNode.fields.x] + x0;
@@ -66,13 +70,14 @@ function chrtLabels() {
           left = (label[this.parentNode.fields.x] + x0) / 2;
           break;
       }
+      left = isBars ? left : label[this.parentNode.fields.x];
       const offsets = {
         top: () => {
           switch (this._vposition) {
             case 'top':
-              return -(this.parentNode.barWidth() || 0) / 2;
+              return isBars ? -(this.parentNode.barWidth() || 0) / 2 : 0;
             case 'bottom':
-              return (this.parentNode.barWidth() || 0) / 2;
+              return isBars ? (this.parentNode.barWidth() || 0) / 2 : 0;
             case 'center':
             case 'middle':
               return 0;
@@ -101,7 +106,7 @@ function chrtLabels() {
         .left(left)
         .align(this._hposition)
         .valign(this._vposition)
-        .offset(offsets.top, 0)
+        .offset(offsets.top || 0, offsets.left || 0)
         .outside(this.outside());
 
 
