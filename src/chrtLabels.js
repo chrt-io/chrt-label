@@ -58,7 +58,7 @@ function chrtLabels() {
       let x0 = !isNull(label[this.parentNode.fields.x0])
         ? label[this.parentNode.fields.x0]
         : this.parentNode.getXScale().domain[0];
-      let left = label[this.parentNode.fields.x] + x0;
+      let left = x0;
       switch (this._alignment.horizontal) {
         case 'start':
           break;
