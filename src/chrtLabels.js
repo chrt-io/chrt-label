@@ -1,4 +1,4 @@
-import { chrtGeneric } from 'chrt-core';
+import chrtGeneric from 'chrt-object';
 import { isNull } from '~/helpers';
 import chrtLabel from './chrtLabel';
 import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels } from './lib';
