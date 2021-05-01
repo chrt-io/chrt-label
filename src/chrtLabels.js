@@ -1,7 +1,7 @@
 import { chrtGeneric } from 'chrt-core';
 import { isNull } from '~/helpers';
 import chrtLabel from './chrtLabel';
-import { align, valign, outside } from './lib';
+import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels } from './lib';
 import { createSVG as create } from '~/layout';
 
 // const DEFAULT_RADIUS = 2;
@@ -50,7 +50,9 @@ function chrtLabels() {
     const isBars = this.parentNode.constructor.name === 'chrtBars';
 
     data.forEach((label, i) => {
-
+      if(this.labelsFilter && !this.labelsFilter(label,i, data)) {
+        return;
+      }
       // console.log(this._alignment.horizontal, label);
       // console.log(this.parentNode.fields.x0)
       // console.log(this.parentNode.getXScale())
@@ -124,6 +126,14 @@ chrtLabels.prototype = Object.assign(chrtLabels.prototype, {
   align,
   valign,
   outside,
+  filter:filterLabels,
+  show: filterLabels,
+  hide: hideLabels,
+  filterLabels,
+  hideLabels,
+  firstLabel,
+  lastLabel,
+  firstAndLastLabels
 });
 
 export default function () {
