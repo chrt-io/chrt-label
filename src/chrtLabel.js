@@ -119,6 +119,7 @@ chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   valign,
   margins,
   offset,
+  offsets: offset,
   outside,
 });
 

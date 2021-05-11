@@ -1,7 +1,7 @@
 import chrtGeneric from 'chrt-object';
 import { isNull } from '~/helpers';
 import chrtLabel from './chrtLabel';
-import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels } from './lib';
+import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset } from './lib';
 import { createSVG as create } from '~/layout';
 
 // const DEFAULT_RADIUS = 2;
@@ -25,9 +25,7 @@ function chrtLabels() {
   this._hposition = 'middle';
   this._vposition = 'top';
 
-  // const isOutside = () => {
-  //   return this.attrs['outside'];
-  // }
+  this._offsets = [() => 0, () => 0];
 
   this.value = (field) => {
     return this.attr('textField', field);
@@ -85,6 +83,7 @@ function chrtLabels() {
               return 0;
           }
         },
+        left: () => 0,
       };
 
       if (!this.labels[i]) {
@@ -102,16 +101,15 @@ function chrtLabels() {
       if(classNames.length) {
         this.labels[i].class(classNames.join(' '));
       }
+
       this.labels[i]
         .value(textField)
         .top(top)
         .left(left)
         .align(this._hposition)
         .valign(this._vposition)
-        .offset(offsets.top || 0, offsets.left || 0)
+        .offset((offsets.top() ?? 0) + this._offsets[0](), (offsets.left() ?? 0) + this._offsets[1]())
         .outside(this.outside());
-
-
     });
 
     return this.parentNode;
@@ -133,7 +131,9 @@ chrtLabels.prototype = Object.assign(chrtLabels.prototype, {
   hideLabels,
   firstLabel,
   lastLabel,
-  firstAndLastLabels
+  firstAndLastLabels,
+  offset,
+  offsets: offset
 });
 
 export default function () {
