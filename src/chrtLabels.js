@@ -25,7 +25,7 @@ function chrtLabels() {
   this._hposition = 'middle';
   this._vposition = 'top';
 
-  this._offsets = [() => 0, () => 0];
+  this._offsets = [() => null, () => null];
 
   this.value = (field) => {
     return this.attr('textField', field);
@@ -46,46 +46,69 @@ function chrtLabels() {
       this.parentNode.g.appendChild(this.g);
     }
     const isBars = this.parentNode.constructor.name === 'chrtBars';
+    const isColumns = this.parentNode.constructor.name === 'chrtColumns';
 
     data.forEach((label, i) => {
       if(this.labelsFilter && !this.labelsFilter(label,i, data)) {
         return;
       }
-      // console.log(this._alignment.horizontal, label);
-      // console.log(this.parentNode.fields.x0)
-      // console.log(this.parentNode.getXScale())
-      let top = label[this.parentNode.fields.y];
+
+      let top = label[this._vposition === 'base' ? this.parentNode.fields.y0 : this.parentNode.fields.y] || 0;
       let x0 = !isNull(label[this.parentNode.fields.x0])
         ? label[this.parentNode.fields.x0]
         : this.parentNode.getXScale().domain[0];
-      let left = x0;
+      const x = label[this.parentNode.fields.x];
+      let left = isBars ? x0 : x;
+
+      // console.log(this.parentNode)
+
       switch (this._alignment.horizontal) {
+        case 'base':
+        break;
         case 'start':
-          break;
+          left = isBars ? (x + x0) : x;
+        break;
         case 'end':
-          left = label[this.parentNode.fields.x] + x0;
+          left = isBars ? (x + x0) : x;
         break;
         case 'center':
         case 'middle':
-          left = (label[this.parentNode.fields.x] + x0) / 2;
+          left = isBars ? (label[this.parentNode.fields.x] + x0) / 2 : x;
           break;
       }
-      left = isBars ? left : label[this.parentNode.fields.x];
+      //console.log(this._alignment.horizontal, this._hposition, left)
+      // left = isBars ? left : label[this.parentNode.fields.x];
       const offsets = {
         top: () => {
           switch (this._vposition) {
+            case 'base':
             case 'top':
-              return isBars ? -(this.parentNode.barWidth() || 0) / 2 : 0;
+              return isBars ? -(this.parentNode.barWidth() || 0) / 2 : -5;
             case 'bottom':
-              return isBars ? (this.parentNode.barWidth() || 0) / 2 : 0;
+              return isBars ? (this.parentNode.barWidth() || 0) / 2 : 5;
             case 'center':
             case 'middle':
+            default:
               return 0;
           }
         },
-        left: () => 0,
+        left: () => {
+          const delta = isColumns ? this.parentNode.getXScale().barwidth/2 : 0;
+          switch (this._hposition) {
+            case 'base':
+              return isBars ? 5 : 0;
+            case 'start':
+            case 'left':
+              return isBars ? 5 :  -delta;
+            case 'end':
+            case 'right':
+              return isBars ? -5 :  delta;
+            default:
+              return 0;
+          }
+        },
       };
-
+      // console.log(offsets.left())
       if (!this.labels[i]) {
         // if the marker exists, just update its data
         // this.markers[i].marker = marker;
@@ -108,7 +131,10 @@ function chrtLabels() {
         .left(left)
         .align(this._hposition)
         .valign(this._vposition)
-        .offset((offsets.top() ?? 0) + this._offsets[0](), (offsets.left() ?? 0) + this._offsets[1]())
+        .offset(
+          ((this._offsets[0]() ?? 0) + offsets.top()),
+          ((this._offsets[1]() ?? 0) + offsets.left())
+        )
         .outside(this.outside());
     });
 

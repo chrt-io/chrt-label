@@ -20,10 +20,11 @@ export function valign(position) {
   let vertical = this._alignment.vertical;
   switch (position) {
     case 'top':
-      vertical = '-0.7em'
+    case 'base':
+      vertical = 0;
     break;
     case 'bottom':
-      vertical = '1em'
+      vertical = '0.7em'
     break;
     case 'middle':
     default:
@@ -48,6 +49,10 @@ export function align(position) {
     case 'center':
       this._alignment.horizontal = 'middle';
       horizontal = 'middle'
+    break;
+    case 'base':
+      horizontal = 'base';
+      this._alignment.horizontal = 'left';
     break;
     case 'left':
     default:
