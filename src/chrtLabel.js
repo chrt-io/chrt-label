@@ -11,9 +11,10 @@ import {
   offset,
   outside,
 } from './lib';
+import {
+  DEFAULT_FILL_COLOR
+} from './constants';
 import { createSVG as create } from '~/layout';
-
-const DEFAULT_FILL_COLOR = '#000';
 
 function chrtLabel(text) {
   chrtGeneric.call(this);

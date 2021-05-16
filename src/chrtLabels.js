@@ -1,15 +1,11 @@
 import chrtGeneric from 'chrt-object';
 import { isNull } from '~/helpers';
 import chrtLabel from './chrtLabel';
-import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset } from './lib';
+import { align, valign, outside, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset, color } from './lib';
 import { createSVG as create } from '~/layout';
-
-// const DEFAULT_RADIUS = 2;
-// const DEFAULT_FILL_COLOR = '#000';
-// const DEFAULT_STROKE = '#000';
-// const DEFAULT_STROKE_OPACITY = 1;
-// const DEFAULT_STROKE_WIDTH = 1;
-// const DEFAULT_FILL_OPACITY = 1;
+import {
+  DEFAULT_FILL_COLOR
+} from './constants';
 
 function chrtLabels() {
   chrtGeneric.call(this);
@@ -24,6 +20,7 @@ function chrtLabels() {
   };
   this._hposition = 'middle';
   this._vposition = 'top';
+  this._fill = DEFAULT_FILL_COLOR;
 
   this._offsets = [() => null, () => null];
 
@@ -135,6 +132,7 @@ function chrtLabels() {
           ((this._offsets[0]() ?? 0) + offsets.top()),
           ((this._offsets[1]() ?? 0) + offsets.left())
         )
+        .color(this._fill)
         .outside(this.outside());
     });
 
@@ -159,7 +157,8 @@ chrtLabels.prototype = Object.assign(chrtLabels.prototype, {
   lastLabel,
   firstAndLastLabels,
   offset,
-  offsets: offset
+  offsets: offset,
+  color,
 });
 
 export default function () {

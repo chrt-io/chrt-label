@@ -14,3 +14,5 @@ export const DEFAULT_ORIENTATION = {
   x: 'bottom',
   y: 'left',
 }
+
+export const DEFAULT_FILL_COLOR = '#000';
