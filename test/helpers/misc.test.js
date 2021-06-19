@@ -1,4 +1,4 @@
-import { isNull, hasData } from '~/helpers';
+import { isNull, hasData, isInfinity } from '~/helpers';
 
 describe('Testing misc functions', () => {
   test('null is null', () => {
@@ -11,5 +11,13 @@ describe('Testing misc functions', () => {
 
   test('Test if an object should not have data', () => {
     expect(hasData({ type: 'custom-no-data' })).toBe(false);
+  });
+
+  test('Test if finite number is not infinite', () => {
+    expect(isInfinity(10)).toBe(false);
+  });
+
+  test('Test if infinite number is infinite', () => {
+    expect(isInfinity(Infinity)).toBe(true);
   });
 });
