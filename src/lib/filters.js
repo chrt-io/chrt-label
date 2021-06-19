@@ -1,9 +1,7 @@
-import { isNull } from '~/helpers';
-
 // filterLabels and hideLabels can get different type of parameters and they filter the labels based on the parameters
 export function filterLabels(filter) {
   // default true
-  if (isNull(filter)) {
+  if (typeof filter === 'undefined') {
     this.labelsFilter = () => true;
     return this;
   }
@@ -36,6 +34,8 @@ export function filterLabels(filter) {
     return this;
   }
 
+  // generic, valid for all other types, including null
+  this.labelsFilter = d => filter === d;
   return this;
 }
 

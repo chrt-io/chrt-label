@@ -21,8 +21,11 @@ function chrtLabel(text) {
   // console.log('chrtLabel', this);
   this.type = 'label';
   this.g = null;
-  this._fill = null;
-  this._position = {};
+
+  this.attr('fill', null);
+  this.attr('text', null)
+
+  this.attr('position', {})
   this._alignment = {
     horizontal: 'start',
     vertical: '0.25em',
@@ -72,10 +75,10 @@ function chrtLabel(text) {
     };
 
     if(scales && scales.x[this.parentNode.scales.x]) {
-      const x = scales.x[this.parentNode.scales.x](getPosition(this._position)(this.parentNode.fields.x)) + this._margins.left - this._margins.right + this._offsets[1]();
+      const x = scales.x[this.parentNode.scales.x](getPosition(this.attr('position')())(this.parentNode.fields.x)) + this._margins.left - this._margins.right + this._offsets[1]();
       // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
-      const y = scales.y[this.parentNode.scales.y](getPosition(this._position)(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom + this._offsets[0]();
+      const y = scales.y[this.parentNode.scales.y](getPosition(this.attr('position')())(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom + this._offsets[0]();
       this.g.setAttribute('transform',`translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`)
 
       // console.log('drawing label', this._offsets[0](), this._offsets[1]())
@@ -85,11 +88,12 @@ function chrtLabel(text) {
 
     if (!label) {
       label = create('text');
-      label.setAttribute('data-id', `label-${this.attr('text')()}`);
+      const text = this.attr('text')();
+      label.setAttribute('data-id', `label-${text}`);
       this.g.appendChild(label);
     }
 
-    label.setAttribute('fill', this._fill || this.parentNode.stroke || DEFAULT_FILL_COLOR)
+    label.setAttribute('fill', this.color()() || this.parentNode.stroke()() || DEFAULT_FILL_COLOR)
     label.textContent = this.attr('text')();
 
     let textAnchor = this._alignment.horizontal;

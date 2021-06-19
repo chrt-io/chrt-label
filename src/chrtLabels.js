@@ -20,7 +20,7 @@ function chrtLabels() {
   };
   this._hposition = 'middle';
   this._vposition = 'top';
-  this._fill = DEFAULT_FILL_COLOR;
+  this.attr('fill', DEFAULT_FILL_COLOR);
 
   this._offsets = [() => null, () => null];
 
@@ -28,9 +28,9 @@ function chrtLabels() {
     return this.attr('textField', field);
   }
 
-  this.position = (position) => {
-    return this.attr('position', position);
-  }
+  // this.position = (position) => {
+  //   return this.attr('position', position);
+  // }
 
   this.draw = () => {
     const parentData = this.parentNode.data();
@@ -58,7 +58,6 @@ function chrtLabels() {
       let left = isBars ? x0 : x;
 
       // console.log(this.parentNode)
-
       switch (this._alignment.horizontal) {
         case 'base':
         break;
@@ -132,7 +131,7 @@ function chrtLabels() {
           ((this._offsets[0]() ?? 0) + offsets.top()),
           ((this._offsets[1]() ?? 0) + offsets.left())
         )
-        .color(this._fill)
+        .color(this.color()())
         .outside(this.outside());
     });
 
