@@ -24,11 +24,13 @@ export function valign(position) {
       vertical = 0;
     break;
     case 'bottom':
-      vertical = '0.7em'
+      vertical = '0.7em';
     break;
     case 'middle':
+    case 'center':
     default:
-      vertical = '0.25em'
+      vertical = '0.25em';
+      position = 'middle';
   }
   this._vposition = position;
   return alignment.call(this, {vertical})

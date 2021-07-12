@@ -20,14 +20,14 @@ export default async function(container) {
             .value(d => {
               return `x:${d.x} y:${d.y}`;
             })
-            .valign('top')
-            .align('left')
-            .valign('bottom')
-            .align('right')
-            .valign('center')
-            .align('center')
-            .valign('base')
-            .align('base')
+            // .valign('top')
+            // .align('left')
+            // .valign('bottom')
+            // .align('right')
+            // .valign('center')
+            // .align('center')
+            // .valign('base')
+            // .align('base')
         )
     );
 }

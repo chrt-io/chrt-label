@@ -50,7 +50,10 @@ function chrtLabels() {
         return;
       }
 
+      // TODO: vertical position to be improved
       let top = label[this._vposition === 'base' ? this.parentNode.fields.y0 : this.parentNode.fields.y] || 0;
+      top = isColumns && this._vposition === 'middle' ? (label[this.parentNode.fields.y] + (label?.[this.parentNode.fields.y0] ?? 0)) / 2 : top
+
       let x0 = !isNull(label[this.parentNode.fields.x0])
         ? label[this.parentNode.fields.x0]
         : this.parentNode.getXScale().domain[0];
@@ -113,14 +116,16 @@ function chrtLabels() {
         this.parentNode.add(this.labels[i]);
       }
 
-      const textFieldAccessor = this.attr('textField');
-      const textField = !isNull(textFieldAccessor) ? textFieldAccessor(label) : label[this.parentNode.fields.y];
+      const textFieldAccessor = this.attr('textField')(label);
+      // console.log('textFieldAccessor', textFieldAccessor)
+      const textField = !isNull(textFieldAccessor) ? textFieldAccessor : label[this.parentNode.fields.y];
       // console.log('LABELS CLASS', this.class().join(' '), this.class());
+
       const classNames = this.class();
       if(classNames.length) {
         this.labels[i].class(classNames.join(' '));
       }
-
+      // console.log(i,'label',textField)
       this.labels[i]
         .value(textField)
         .top(top)
@@ -131,7 +136,7 @@ function chrtLabels() {
           ((this._offsets[0]() ?? 0) + offsets.top()),
           ((this._offsets[1]() ?? 0) + offsets.left())
         )
-        .color(this.color()())
+        .color(this.color()(label,i,data))
         .outside(this.outside());
     });
 

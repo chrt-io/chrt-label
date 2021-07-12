@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtLabel from '~/chrtLabel'
+import chrtLabels from '~/chrtLabels'
 
 const data = new Array(10).fill(1).map((d,i) => ({x: i, y: i}));
 
@@ -10,19 +10,18 @@ export default async function(container) {
     .add(chrt.xAxis())
     .add(chrt.yAxis())
     .add(
-      chrt.chrtPoints()
+      chrt.chrtColumns()
         .data(data, d => ({
           x: d.x,
           y: d.y,
         }))
         .add(
-          chrtLabel('test')
-            .outside(true)
-            .position({x: 8, y:8})
-            .offset(10,10)
-            .align('end')
-            .valign('top')
-            .color('#f6f')
+          chrtLabels()
+            .value(d => {
+              return `x:${d.x} y:${d.y}`;
+            })
+            .valign('bottom')
+            .align('right')
         )
     );
 }
