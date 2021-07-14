@@ -21,7 +21,7 @@ export default async function(container) {
               return `x:${d.x} y:${d.y}`;
             })
             .valign('top')
-            .align('start')
+            .align('end')
         )
     );
 }

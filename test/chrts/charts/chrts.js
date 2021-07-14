@@ -12,4 +12,7 @@ export { default as barsDefaultLabelsWithValue2 } from './bars-default-chrtLabel
 export { default as barsDefaultLabelsWithValue3 } from './bars-default-chrtLabels-with-value3.js';
 export { default as defaultLabelsWithColor } from './default-chrtLabels-with-color';
 
+export { default as stackedBarsDefaultLabelsWithValue2 } from './stacked-bars-default-chrtLabels-with-value2.js';
+export { default as stackedColumnsDefaultLabelsWithValue } from './stacked-columns-chrtLabels-with-value.js';
+
 export { default as chrtLabel } from './default-chrtLabel.js';

@@ -50,29 +50,46 @@ function chrtLabels() {
         return;
       }
 
-      // TODO: vertical position to be improved
-      let top = label[this._vposition === 'base' ? this.parentNode.fields.y0 : this.parentNode.fields.y] || 0;
-      top = isColumns && this._vposition === 'middle' ? (label[this.parentNode.fields.y] + (label?.[this.parentNode.fields.y0] ?? 0)) / 2 : top
+      let y0 = label[this.parentNode.fields.y0] ?? 0; // this.parentNode.getYScale().domain[0];
+      const y = label[`stacked_${this.parentNode.fields.y}`] ?? label[this.parentNode.fields.y]
+      let top = y;
+      switch (this._vposition) {
+        case 'base':
+          top = isColumns ? (y0) : y;
+        break;
+        case 'start':
+        case 'left':
+          top = isColumns ? (y + y0) : y;
+        break;
+        case 'end':
+        case 'right':
+          top = isColumns ? (y + y0) : y;
+        break;
+        case 'center':
+        case 'middle':
+          top = isColumns ? (y + y0) / 2 : y;
+          break;
+      }
 
-      let x0 = !isNull(label[this.parentNode.fields.x0])
-        ? label[this.parentNode.fields.x0]
-        : this.parentNode.getXScale().domain[0];
-      const x = label[this.parentNode.fields.x];
+      let x0 = label[this.parentNode.fields.x0] ?? this.parentNode.getXScale().domain[0];
+
+      const x = label[`stacked_${this.parentNode.fields.x}`] ?? label[this.parentNode.fields.x]
       let left = isBars ? x0 : x;
 
-      // console.log(this.parentNode)
       switch (this._alignment.horizontal) {
         case 'base':
         break;
         case 'start':
-          left = isBars ? (x + x0) : x;
+        case 'left':
+          left = isBars ? x0 : x;
         break;
         case 'end':
-          left = isBars ? (x + x0) : x;
+        case 'right':
+          left = x; // isBars ? (x) : x;
         break;
         case 'center':
         case 'middle':
-          left = isBars ? (label[this.parentNode.fields.x] + x0) / 2 : x;
+          left = isBars ? (x + x0) / 2 : x;
           break;
       }
       //console.log(this._alignment.horizontal, this._hposition, left)
