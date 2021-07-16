@@ -157,7 +157,7 @@ function chrtLabels() {
         .outside(this.outside());
     });
 
-    return this.parentNode;
+    return this;
   };
 }
 

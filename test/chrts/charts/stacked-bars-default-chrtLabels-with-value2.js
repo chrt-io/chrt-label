@@ -9,6 +9,7 @@ export default async function(container) {
     .size(600, 200)
     .add(chrt.xAxis())
     .add(chrt.yAxis())
+
     .add(
       chrt.chrtStack()
         .orientation('left')
@@ -18,6 +19,31 @@ export default async function(container) {
               x: d.x,
               y: d.y,
             }))
+            .fill('#0ff')
+            .add(
+              chrtLabels()
+                .value(d => {
+                  return `x:${d.x} y:${d.y}`;
+                })
+                .valign('middle')
+                .align('left')
+                //.outside(true)
+            )
+        )
+        .add(
+          chrt.chrtBars()
+            .data(data, d => ({
+              x: d.x,
+              y: d.y,
+            }))
+            .add(
+              chrtLabels()
+                .value(d => {
+                  return `x:${d.x} y:${d.y}`;
+                })
+                .valign('middle')
+                .align('middle')
+            )
         )
         .add(
           chrt.chrtBars()

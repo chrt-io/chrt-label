@@ -1,5 +1,5 @@
 import chrtGeneric from 'chrt-object';
-import { isNull } from '~/helpers';
+import { isNull, isInfinity } from '~/helpers';
 import {
   color,
   position,
@@ -79,7 +79,7 @@ function chrtLabel(text) {
       // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
       const y = scales.y[this.parentNode.scales.y](getPosition(this.attr('position')())(this.parentNode.fields.y)) + this._margins.top - this._margins.bottom + this._offsets[0]();
-      this.g.setAttribute('transform',`translate(${isNaN(x) ? 0 : x},${isNaN(y) ? 0 : y})`)
+      this.g.setAttribute('transform',`translate(${isNaN(x) || isInfinity(x) ? 0 : x},${isNaN(y) || isInfinity(y) ? 0 : y})`)
 
       // console.log('drawing label', this._offsets[0](), this._offsets[1]())
     }
@@ -106,6 +106,8 @@ function chrtLabel(text) {
 
     // console.log('---->', chrtGeneric.prototype)
     // console.log('--->', chrtGeneric.hasData.call(this))
+
+    return this;
   }
 }
 
