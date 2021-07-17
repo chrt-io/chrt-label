@@ -42,8 +42,8 @@ function chrtLabels() {
       this.g = create('g');
       this.parentNode.g.appendChild(this.g);
     }
-    const isBars = this.parentNode.constructor.name === 'chrtBars';
-    const isColumns = this.parentNode.constructor.name === 'chrtColumns';
+    const isBars = ~this.parentNode?.class().indexOf('chrt-bars');
+    const isColumns = ~this.parentNode?.class().indexOf('chrt-columns');
 
     data.forEach((label, i) => {
       if(this.labelsFilter && !this.labelsFilter(label,i, data)) {
