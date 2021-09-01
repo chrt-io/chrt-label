@@ -17,11 +17,10 @@ export default async function(container) {
         }))
         .add(
           chrtLabels()
-            .value(d => {
-              return `x:${d.x} y:${d.y}`;
-            })
-            .valign('center')
-            .align('center')
+            .value('start x top')
+            .valign('top')
+            .align('start')
+            .relativePosition([1,0])
         )
     );
 }

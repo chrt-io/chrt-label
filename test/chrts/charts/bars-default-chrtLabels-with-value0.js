@@ -7,7 +7,7 @@ export default async function(container) {
   return chrt.Chrt()
     .node(container)
     .size(600, 200)
-    .add(chrt.xAxis())
+    .add(chrt.xAxis(5))
     .add(chrt.yAxis())
     .add(
       chrt.chrtBars()
@@ -20,7 +20,7 @@ export default async function(container) {
             .value(d => {
               return `x:${d.x} y:${d.y}`;
             })
-            .valign('top')
+            .valign('middle')
             .align('end')
         )
     );

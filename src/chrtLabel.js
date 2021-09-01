@@ -9,7 +9,6 @@ import {
   valign,
   margins,
   offset,
-  outside,
 } from './lib';
 import {
   DEFAULT_FILL_COLOR
@@ -26,12 +25,13 @@ function chrtLabel(text) {
   this.attr('text', null)
 
   this.attr('position', {})
-  this._alignment = {
+  this.attr('anchor', null);
+
+  this.defaultAlignment = {
     horizontal: 'start',
-    vertical: '0.25em',
+    vertical: 'text-after-edge',
   }
-  this._vposition = 'middle';
-  this._hposition = 'start';
+
   this._margins = {
     top: 0,
     right: 0,
@@ -47,6 +47,8 @@ function chrtLabel(text) {
 
   this.value(text);
 
+  this.anchor = (anchor) => { return this.attr('anchor', anchor) };
+
   this.draw = () => {
     if (!this.parentNode.parentNode.scales) {
       return this.parentNode.parentNode;
@@ -54,7 +56,7 @@ function chrtLabel(text) {
 
     if (!this.g) {
       this.g = create('g');
-      this.parentNode.g.appendChild(this.g);
+      this.parentNode.g.parentNode.appendChild(this.g);
     }
     this.g.setAttribute('id', this.id())
 
@@ -74,7 +76,11 @@ function chrtLabel(text) {
       return position[field];
     };
 
-    if(scales && scales.x[this.parentNode.scales.x]) {
+    const anchor = this.attr('anchor')();
+
+    if(!anchor && scales && scales.x[this.parentNode.scales.x]) {
+      // console.log('position', this.attr('position')())
+      // console.log(`getPosition(position)(${(this.parentNode.fields.x)})`, getPosition(this.attr('position')())(this.parentNode.fields.x))
       const x = scales.x[this.parentNode.scales.x](getPosition(this.attr('position')())(this.parentNode.fields.x)) + this._margins.left - this._margins.right + this._offsets[1]();
       // console.log('x', x, this._margins)
       // if y is not defined by the user, it should be calculated based on the closest Y value based on X
@@ -96,16 +102,65 @@ function chrtLabel(text) {
     label.setAttribute('fill', this.color()() || this.parentNode.stroke()() || DEFAULT_FILL_COLOR)
     label.textContent = this.attr('text')();
 
-    let textAnchor = this._alignment.horizontal;
-    if(this.outside() && this.outside()()) {
-      textAnchor = textAnchor === 'start' ? 'end' : 'start';
+    // console.log(this._alignment, anchor?.alignment, this.defaultAlignment)
+
+    const alignment =  this._alignment || anchor?.alignment || this.defaultAlignment;
+
+    // console.log('ALIGNMENT', alignment)
+
+
+    let textAnchor = alignment.horizontal;
+
+    let dominantAlignment = '';
+    switch(alignment.vertical) {
+      case 'bottom':
+        dominantAlignment = 'text-before-edge';
+      break;
+      case 'top':
+        dominantAlignment = 'text-after-edge';
+        break;
+      default:
+      case 'middle':
+        dominantAlignment = 'middle';
     }
 
-    label.setAttribute('text-anchor', textAnchor)
-    label.setAttribute('dy', this._alignment.vertical)
+    if(anchor) {
+      // console.log('anchor', anchor)
+      // console.log('this._alignment', this._alignment)
 
-    // console.log('---->', chrtGeneric.prototype)
-    // console.log('--->', chrtGeneric.hasData.call(this))
+      const relativePosition = anchor.relativePosition;
+
+      const _x = anchor.x + anchor.width * (1 - anchor.directions.x) + (anchor.width * relativePosition[0] * (anchor.directions.x || -1)) // + (anchor.width * anchor.directions.x) * relativePosition[0];
+      // const _y = anchor.y + (anchor.height * relativePosition[1]);
+      const _y = anchor.y + anchor.height * (1 - anchor.directions.y) + (anchor.height * relativePosition[1] * (anchor.directions.y || -1))
+      const translate = {
+        x: isNaN(_x) || isInfinity(_x) ? 0 : _x,
+        y: isNaN(_y) || isInfinity(_y) ? 0 : _y,
+      }
+
+      if(!anchor.directions.x) {
+        if(textAnchor === 'start') {
+          textAnchor = 'end';
+        } else if(textAnchor === 'end') {
+          textAnchor = 'start';
+        }
+      }
+
+      if(!anchor.directions.y) {
+        if(dominantAlignment === 'text-after-edge') {
+          dominantAlignment = 'text-before-edge';
+        } else if(dominantAlignment === 'text-before-edge') {
+          dominantAlignment = 'text-after-edge';
+        }
+      }
+
+
+
+      this.g.setAttribute('transform',`translate(${translate.x}, ${translate.y})`)
+    }
+
+    label.setAttribute('text-anchor', textAnchor);
+    label.setAttribute('dominant-baseline', dominantAlignment);
 
     return this;
   }
@@ -119,6 +174,7 @@ chrtLabel.prototype.constructor = chrtLabel;
 
 chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   color,
+  fill: color,
   position,
   top,
   left,
@@ -127,7 +183,6 @@ chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   margins,
   offset,
   offsets: offset,
-  outside,
 });
 
 // export default chrtLabel;

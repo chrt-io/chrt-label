@@ -15,6 +15,7 @@ export default async function(container) {
           x: d.x,
           y: d.y,
         }))
+        .radius(5)
         .add(
           chrtLabels()
             .value(d => {

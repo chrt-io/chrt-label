@@ -17,10 +17,10 @@ export default async function(container) {
         }))
         .add(
           chrtLabels()
-            .value('end-bottom')
-            .align('end')
-            .valign('bottom')
-            .relativePosition([0,1])
+            .value('middle-middle')
+            .align('middle')
+            .valign('middle')
+            .relativePosition([0,0])
         )
     );
 }

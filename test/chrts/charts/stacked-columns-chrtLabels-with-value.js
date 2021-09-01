@@ -50,7 +50,7 @@ export default async function(container) {
             .fillOpacity(0.5)
             .add(
               chrtLabels()
-                .valign('middle')
+                .fill('#fff')
             )
         )
         .add(
@@ -61,6 +61,9 @@ export default async function(container) {
             }))
             .width(0.5)
             .fill('#00f')
+            .add(
+              chrtLabels()
+            )
         )
         .add(
           chrt.chrtColumns()
@@ -72,7 +75,6 @@ export default async function(container) {
             .fill('#0ff')
             .add(
               chrtLabels()
-                .valign('middle')
             )
         )
     )

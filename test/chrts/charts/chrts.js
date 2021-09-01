@@ -1,6 +1,7 @@
 export { default as defaultLabels0 } from './default-chrtLabels0.js';
 export { default as defaultLabels1 } from './default-chrtLabels1.js';
 export { default as defaultLabels2 } from './default-chrtLabels2.js';
+export { default as defaultLabels3 } from './default-chrtLabels3.js';
 export { default as defaultLabelsWithValue } from './default-chrtLabels-with-value.js';
 export { default as columnsDefaultLabelsWithValue0 } from './columns-default-chrtLabels-with-value0.js';
 export { default as columnsDefaultLabelsWithValue1 } from './columns-default-chrtLabels-with-value1.js';
@@ -16,3 +17,10 @@ export { default as stackedBarsDefaultLabelsWithValue2 } from './stacked-bars-de
 export { default as stackedColumnsDefaultLabelsWithValue } from './stacked-columns-chrtLabels-with-value.js';
 
 export { default as chrtLabel } from './default-chrtLabel.js';
+
+export { default as stackedBarsWithNegativeValues } from './stacked-bars-negative-with-labels.js';
+
+export { default as barsLabelAlignment } from './bars-alignments.js';
+export { default as stackedBarsLabelAlignment } from './stacked-bars-alignments.js';
+
+export { default as stackedColumnsLabelAlignment } from './stacked-columns-alignments.js';

@@ -17,10 +17,9 @@ export default async function(container) {
         }))
         .add(
           chrtLabel('test')
-            .outside(true)
             .position({x: 8, y:8})
-            .offset(10,10)
-            .align('end')
+            .offset(-5,0)
+            .align('middle')
             .valign('top')
             .color('#f6f')
         )

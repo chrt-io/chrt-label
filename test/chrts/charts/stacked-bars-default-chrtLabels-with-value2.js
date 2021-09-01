@@ -26,8 +26,7 @@ export default async function(container) {
                   return `x:${d.x} y:${d.y}`;
                 })
                 .valign('middle')
-                .align('left')
-                //.outside(true)
+                .align('end')
             )
         )
         .add(
@@ -58,7 +57,7 @@ export default async function(container) {
                   return `x:${d.x} y:${d.y}`;
                 })
                 .valign('middle')
-                .align('right')
+                .align('start')
             )
         )
     )

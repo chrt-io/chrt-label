@@ -17,8 +17,10 @@ export default async function(container) {
         }))
         .add(
           chrtLabels()
+            .value('left-top')
             .align('start')
-            .valign('bottom')
+            .valign('top')
+            .relativePosition([1,0])
         )
     );
 }

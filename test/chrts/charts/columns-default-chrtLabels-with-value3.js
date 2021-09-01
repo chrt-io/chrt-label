@@ -20,8 +20,9 @@ export default async function(container) {
             .value(d => {
               return `x:${d.x} y:${d.y}`;
             })
-            .valign('base')
+            .valign('top')
             .align('middle')
+            .relativePosition([0.5,1])
         )
     );
 }
