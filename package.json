@@ -1,6 +1,6 @@
 {
   "name": "chrt-label",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "Label for XY charts component for Chrt",
   "main": "dist/chrt-label.js",
   "module": "dist/chrt-label.esm.js",
