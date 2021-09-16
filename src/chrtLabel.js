@@ -134,9 +134,10 @@ function chrtLabel(text) {
       // const _y = anchor.y + (anchor.height * relativePosition[1]);
       const _y = anchor.y + anchor.height * (1 - anchor.directions.y) + (anchor.height * relativePosition[1] * (anchor.directions.y || -1))
       const translate = {
-        x: isNaN(_x) || isInfinity(_x) ? 0 : _x,
-        y: isNaN(_y) || isInfinity(_y) ? 0 : _y,
+        x: (isNaN(_x) || isInfinity(_x) ? 0 : _x) + this._offsets[1](),
+        y: (isNaN(_y) || isInfinity(_y) ? 0 : _y) + this._offsets[0](),
       }
+
 
       if(!anchor.directions.x) {
         if(textAnchor === 'start') {

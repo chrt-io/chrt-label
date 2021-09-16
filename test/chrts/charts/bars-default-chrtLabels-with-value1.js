@@ -19,10 +19,7 @@ export default async function(container) {
         }))
         .add(
           chrtLabels()
-            .value(d => {
-              return 'end x bottom 1,1';
-              //return `x:${d.x} y:${d.y}`;
-            })
+            .value('end x bottom 1,1')
             .valign('bottom')
             .align('end')
             .relativePosition([1, 1])

@@ -166,8 +166,8 @@ function chrtLabels() {
           relativePosition: this._rposition || label.anchorPoints.relativePosition,
         }) : null)
         .offset(
-          ((this._offsets[0]() ?? 0) + offsets.top()),
-          ((this._offsets[1]() ?? 0) + offsets.left())
+          ((this._offsets[1]() ?? 0) + offsets.left()),
+          ((this._offsets[0]() ?? 0) + offsets.top())
         )
         .color(this.color()(label,i,data));
 

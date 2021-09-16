@@ -24,3 +24,5 @@ export { default as barsLabelAlignment } from './bars-alignments.js';
 export { default as stackedBarsLabelAlignment } from './stacked-bars-alignments.js';
 
 export { default as stackedColumnsLabelAlignment } from './stacked-columns-alignments.js';
+
+export { default as offsetsBars } from './offsets-bars.js';
