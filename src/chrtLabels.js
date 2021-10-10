@@ -1,4 +1,4 @@
-import chrtGeneric from 'chrt-object';
+import chrtObject from 'chrt-object';
 import { isNull } from '~/helpers';
 import chrtLabel from './chrtLabel';
 import { align, valign, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset, color, relativePosition } from './lib';
@@ -7,7 +7,7 @@ import {
 } from './constants';
 
 function chrtLabels() {
-  chrtGeneric.call(this);
+  chrtObject.call(this);
   // console.log("HI WE ARE LABELS", this);
   this.type = 'labels';
   this.labels = [];
@@ -184,9 +184,9 @@ function chrtLabels() {
   };
 }
 
-chrtLabels.prototype = Object.create(chrtGeneric.prototype);
+chrtLabels.prototype = Object.create(chrtObject.prototype);
 chrtLabels.prototype.constructor = chrtLabels;
-chrtLabels.parent = chrtGeneric.prototype;
+chrtLabels.parent = chrtObject.prototype;
 
 chrtLabels.prototype = Object.assign(chrtLabels.prototype, {
   align,

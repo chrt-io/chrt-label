@@ -1,4 +1,4 @@
-import chrtGeneric from 'chrt-object';
+import chrtObject from 'chrt-object';
 import { isNull, isInfinity } from '~/helpers';
 import {
   color,
@@ -16,7 +16,7 @@ import {
 import { createSVG as create } from '~/layout';
 
 function chrtLabel(text) {
-  chrtGeneric.call(this);
+  chrtObject.call(this);
   // console.log('chrtLabel', this);
   this.type = 'label';
   this.g = null;
@@ -167,11 +167,11 @@ function chrtLabel(text) {
   }
 }
 
-chrtLabel.prototype = Object.create(chrtGeneric.prototype);
+chrtLabel.prototype = Object.create(chrtObject.prototype);
 // console.log('WHAT IS THIS?')
-// console.log(Object.create(chrtGeneric.prototype))
+// console.log(Object.create(chrtObject.prototype))
 chrtLabel.prototype.constructor = chrtLabel;
-// chrtLabel.parent = chrtGeneric.prototype;
+// chrtLabel.parent = chrtObject.prototype;
 
 chrtLabel.prototype = Object.assign(chrtLabel.prototype, {
   color,
