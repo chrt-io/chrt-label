@@ -17,7 +17,7 @@ export default async function(container) {
         }))
         .add(
           chrtLabels()
-            .value('left-top')
+            .value('start-top')
             .align('start')
             .valign('top')
             .relativePosition([1,0])

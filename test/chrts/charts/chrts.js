@@ -26,3 +26,6 @@ export { default as stackedBarsLabelAlignment } from './stacked-bars-alignments.
 export { default as stackedColumnsLabelAlignment } from './stacked-columns-alignments.js';
 
 export { default as offsetsBars } from './offsets-bars.js';
+
+export { default as lineChartChrtLabels } from './lineChart-chrtLabels.js';
+export { default as stackedAreaChartChrtLabels } from './stacked-area-chart-chrtLabels.js';

@@ -20,7 +20,7 @@ export default async function(container) {
             .value('end-bottom')
             .align('end')
             .valign('bottom')
-            .relativePosition([0,1])
+            // .relativePosition([0,1])
         )
     );
 }
