@@ -1,4 +1,4 @@
-import { isNull } from '~/helpers';
+import { isNull } from '../helpers';
 export default function alignment(align) {
   if(isNull(align)) {
     return this._alignment;

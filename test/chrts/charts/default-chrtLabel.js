@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtLabel from '~/chrtLabel'
+import chrtLabel from '../../../src/chrtLabel'
 
 const data = new Array(10).fill(1).map((d,i) => ({x: i, y: i}));
 

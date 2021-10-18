@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtLabels from '~/chrtLabels'
+import chrtLabels from '../../../src/chrtLabels'
 import {chrtLine} from 'chrt-line';
 
 const data = [

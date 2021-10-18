@@ -1,4 +1,4 @@
-import { isNull } from '~/helpers';
+import { isNull } from '../helpers';
 
 export default function relativePosition(position) {
   if(isNull(position)) {

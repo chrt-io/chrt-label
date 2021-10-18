@@ -1,5 +1,5 @@
 import chrtObject from 'chrt-object';
-import { isNull, isInfinity } from '~/helpers';
+import { isNull, isInfinity } from './helpers';
 import {
   color,
   position,
@@ -13,7 +13,7 @@ import {
 import {
   DEFAULT_FILL_COLOR
 } from './constants';
-import { createSVG as create } from '~/layout';
+import { createSVG as create } from './layout';
 
 function chrtLabel(text) {
   chrtObject.call(this);

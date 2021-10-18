@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtLabels from '~/chrtLabels'
+import chrtLabels from '../../../src/chrtLabels'
 
 const data = new Array(10).fill(1).map((d,i) => ({x: i, y: i}));
 

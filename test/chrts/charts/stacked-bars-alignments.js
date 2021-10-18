@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtLabels from '~/chrtLabels';
+import chrtLabels from '../../../src/chrtLabels';
 
 const colors = ['#00B51D', '#000', '#FF0000', '#00C2FF'];
 
