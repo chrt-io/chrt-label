@@ -1,6 +1,6 @@
 {
   "name": "chrt-label",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "Label for XY charts component for Chrt",
   "type": "module",
   "main": "src/index.js",
