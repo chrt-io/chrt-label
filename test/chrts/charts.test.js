@@ -8,9 +8,12 @@ function replaceIDWithMockId(str) {
 for (const key of Object.keys(chrts)) {
   test(`Test ${key} SVG`, async () => {
     const mockElement = document.createElement('div');
-    const chart = await chrts[key](mockElement);
+    if(typeof chrts[key] === 'function') {
+      // console.log('chrts[key]', chrts[key])
+      const chart = await chrts[key](mockElement);
 
-    const innerHTML = replaceIDWithMockId(chart.node().innerHTML);
-    expect(innerHTML).toMatchSnapshot();
+      const innerHTML = replaceIDWithMockId(chart.node().innerHTML);
+      expect(innerHTML).toMatchSnapshot();
+    }
   });
 }

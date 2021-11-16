@@ -1,4 +1,3 @@
-import * as chrt from 'chrt';
 import chrtLabel from '~/chrtLabel'
 
 const defaultMargins = {

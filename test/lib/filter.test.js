@@ -1,4 +1,3 @@
-import * as chrt from 'chrt';
 import chrtLabels from '~/chrtLabels'
 
 describe('Testing show', () => {
