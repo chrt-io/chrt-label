@@ -190,8 +190,7 @@ export default async function(container) {
         )
     )
     .add(
-      chrt
-        .xAxis()
+      chrt.xAxis()
         .zero(0)
         .hideTicks()
         .hideLabels()
