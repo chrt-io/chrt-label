@@ -1,4 +1,5 @@
-import { isNull } from '../helpers';
+import { utils } from 'chrt-object';
+const { isNull } = utils;
 
 export default function relativePosition(position) {
   if(isNull(position)) {

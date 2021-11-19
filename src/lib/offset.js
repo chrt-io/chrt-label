@@ -1,4 +1,5 @@
-import { isNull } from '../helpers';
+import { utils } from 'chrt-object';
+const { isNull } = utils;
 
 export default function offset(...offsets) {
   if(isNull(offsets)) {

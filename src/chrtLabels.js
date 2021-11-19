@@ -1,5 +1,5 @@
-import chrtObject from 'chrt-object';
-import { isNull } from './helpers';
+import chrtObject, { utils } from 'chrt-object';
+const { isNull } = utils;
 import chrtLabel from './chrtLabel';
 import { align, valign, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset, color, relativePosition } from './lib';
 import {

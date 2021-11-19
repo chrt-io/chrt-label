@@ -1,5 +1,4 @@
-import chrtObject from 'chrt-object';
-import { isNull, isInfinity } from './helpers';
+import chrtObject, { utils } from 'chrt-object';
 import {
   color,
   position,
@@ -13,7 +12,7 @@ import {
 import {
   DEFAULT_FILL_COLOR
 } from './constants';
-import { createSVG as create } from './layout';
+const { isNull, isInfinity, createSVG: create } = utils;
 
 function chrtLabel(text) {
   chrtObject.call(this);
@@ -61,7 +60,9 @@ function chrtLabel(text) {
     this.g.setAttribute('id', this.id())
 
     const { scales } = this.parentNode.parentNode;
-    this._classNames.forEach(d => this.g.classList.add(d));
+
+    this.g.classList.remove(...this.g.classList)
+    this.g.classList.add(...this._classNames);
 
     const getPosition = position => (field) => {
       // console.log('getPosition', position, field)

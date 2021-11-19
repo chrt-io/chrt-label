@@ -1,4 +1,6 @@
-import { isNull } from '../helpers';
+import { utils } from 'chrt-object';
+const { isNull } = utils;
+
 export default function alignment(align) {
   if(isNull(align)) {
     return this._alignment;
