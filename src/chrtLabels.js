@@ -1,4 +1,4 @@
-import chrtObject, { utils } from 'chrt-object';
+import chrtObject, { utils, cssDisplay } from 'chrt-object';
 const { isNull } = utils;
 import chrtLabel from './chrtLabel';
 import { align, valign, filterLabels, hideLabels, firstLabel, lastLabel, firstAndLastLabels, offset, color, relativePosition } from './lib';
@@ -176,6 +176,8 @@ function chrtLabels() {
           .align(this._alignment?.horizontal)
           .valign(this._alignment?.vertical);
       }
+
+      this.labels[i].attr(this.attr('display')(label,i,data));
 
 
     });

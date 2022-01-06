@@ -1,4 +1,4 @@
-import chrtObject, { utils } from 'chrt-object';
+import chrtObject, { utils, cssDisplay } from 'chrt-object';
 import {
   color,
   position,
@@ -61,6 +61,7 @@ function chrtLabel(text) {
 
     const { scales } = this.parentNode.parentNode;
 
+    cssDisplay.call(this, this.attr('display')());
     this.g.classList.remove(...this.g.classList)
     this.g.classList.add(...this._classNames);
 
