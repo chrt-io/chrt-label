@@ -173,8 +173,8 @@ function chrtLabels() {
 
       if(this._alignment) {
         this.labels[i]
-          .align(this._alignment?.horizontal)
-          .valign(this._alignment?.vertical);
+          .align(this._alignment?.horizontal || 'middle')
+          .valign(this._alignment?.vertical || 'top');
       }
 
       this.labels[i].attr(this.attr('display')(label,i,data));
