@@ -49,6 +49,7 @@ function chrtLabel(text) {
   this.anchor = (anchor) => { return this.attr('anchor', anchor) };
 
   this.draw = () => {
+    // console.log('LABEL DRAWING', text, this.g)
     if (!this.parentNode.parentNode.scales) {
       return this.parentNode.parentNode;
     }
@@ -97,7 +98,7 @@ function chrtLabel(text) {
     if (!label) {
       label = create('text');
       const text = this.attr('text')();
-      label.setAttribute('data-id', `label-${text}`);
+      label.setAttribute('data-id', escape(`label-${text}`));
       this.g.appendChild(label);
     }
 
