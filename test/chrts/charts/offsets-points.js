@@ -12,7 +12,7 @@ export default async function (container) {
     .add(chrt.yAxis())
     .add(
       chrt
-        .chrtBars()
+        .points()
         .data(data, (d) => ({
           x: d.x,
           y: d.y,
@@ -21,7 +21,7 @@ export default async function (container) {
     )
     .add(
       chrt
-        .chrtBars()
+        .points()
         .data(data, (d) => ({
           x: d.x,
           y: d.y,

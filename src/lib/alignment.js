@@ -2,9 +2,10 @@ import { utils } from 'chrt-object';
 const { isNull } = utils;
 
 export default function alignment(align) {
-  if(isNull(align)) {
-    return this._alignment;
-  }
+  // this is never called
+  // if(isNull(align)) {
+  //   return this._alignment;
+  // }
 
   if (typeof coords === 'function') {
     // something will go here
@@ -16,41 +17,41 @@ export default function alignment(align) {
 }
 
 export function align(position) {
-  if(isNull(position)) {
+  if (isNull(position)) {
     return this._alignment?.horizontal || this.defaultAlignment.horizontal;
   }
   let horizontal = 'start';
   switch (position) {
     case 'end':
-      horizontal = 'end'
-    break;
+      horizontal = 'end';
+      break;
     case 'center':
     case 'middle':
-      horizontal = 'middle'
-    break;
+      horizontal = 'middle';
+      break;
     case 'start':
     default:
-      horizontal = 'start'
+      horizontal = 'start';
   }
-  return alignment.call(this, {horizontal})
+  return alignment.call(this, { horizontal });
 }
 
 export function valign(position) {
-  if(isNull(position)) {
+  if (isNull(position)) {
     return this._alignment?.vertical || this.defaultAlignment.vertical;
   }
   let vertical = 'top';
   switch (position) {
     case 'bottom':
-      vertical = 'bottom'
-    break;
+      vertical = 'bottom';
+      break;
     case 'middle':
     case 'center':
-      vertical = 'middle'
-    break;
+      vertical = 'middle';
+      break;
     case 'top':
     default:
-      vertical = 'top'
+      vertical = 'top';
   }
-  return alignment.call(this, {vertical})
+  return alignment.call(this, { vertical });
 }

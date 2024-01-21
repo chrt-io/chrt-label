@@ -26,6 +26,15 @@ export { default as stackedBarsLabelAlignment } from './stacked-bars-alignments.
 export { default as stackedColumnsLabelAlignment } from './stacked-columns-alignments.js';
 
 export { default as offsetsBars } from './offsets-bars.js';
+export { default as offsetsPoints } from './offsets-points.js';
 
 export { default as lineChartChrtLabels } from './lineChart-chrtLabels.js';
 export { default as stackedAreaChartChrtLabels } from './stacked-area-chart-chrtLabels.js';
+
+export { default as addToRootLabel } from './add-to-root-chrtLabel.js';
+export { default as labelMargins } from './margins.js';
+
+export { default as updateDefaultLabels0 } from './update-default-chrtLabels0.js';
+
+export { default as filterLabels } from './filter-chrtLabels.js';
+export { default as classLabels } from './class-chrtLabels.js';
