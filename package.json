@@ -7,6 +7,9 @@
   "module": "src/index.js",
   "jsdelivr": "dist/chrt-label.min.js",
   "unpkg": "dist/chrt-label.min.js",
+  "engines": {
+    "node": ">=16"
+  },
   "exports": {
     "umd": "./dist/chrt-label.min.js",
     "default": "./dist/chrt-label.esm.js"
