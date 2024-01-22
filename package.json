@@ -1,6 +1,6 @@
 {
   "name": "chrt-label",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "Label for XY charts component for Chrt",
   "type": "module",
   "main": "src/index.js",
@@ -14,10 +14,17 @@
     "umd": "./dist/chrt-label.min.js",
     "default": "./dist/chrt-label.esm.js"
   },
-  "keywords": ["chrt", "charts", "labels", "visualization"],
+  "keywords": [
+    "chrt",
+    "charts",
+    "labels",
+    "visualization"
+  ],
   "watch": {
     "build": {
-      "patterns": ["src"],
+      "patterns": [
+        "src"
+      ],
       "extensions": "js,jsx"
     }
   },
@@ -73,5 +80,8 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "watch": "^1.0.2"
   },
-  "files": ["dist/**/*.js", "src/**/*.js"]
+  "files": [
+    "dist/**/*.js",
+    "src/**/*.js"
+  ]
 }
