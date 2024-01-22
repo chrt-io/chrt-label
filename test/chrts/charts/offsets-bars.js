@@ -17,15 +17,16 @@ export default async function (container) {
           x: d.x,
           y: d.y,
         }))
-        .add(chrtLabels().valign('middle').align('start').offset(-50, 10)),
-    )
-    .add(
-      chrt
-        .chrtBars()
-        .data(data, (d) => ({
-          x: d.x,
-          y: d.y,
-        }))
+        .add(chrtLabels().valign('middle').align('start').offset(-50, 10))
         .add(chrtLabels().valign('top').align('end').offset(50, -10)),
-    );
+    )
+    // .add(
+    //   chrt
+    //     .chrtBars()
+    //     .data(data, (d) => ({
+    //       x: d.x,
+    //       y: d.y,
+    //     }))
+
+    // );
 }
