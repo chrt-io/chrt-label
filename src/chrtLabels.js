@@ -1,6 +1,6 @@
-import chrtObject, { utils, cssDisplay } from 'chrt-object';
+import chrtObject, { utils, cssDisplay } from "chrt-object";
 const { isNull } = utils;
-import chrtLabel from './chrtLabel';
+import chrtLabel from "./chrtLabel";
 import {
   align,
   valign,
@@ -12,23 +12,24 @@ import {
   offset,
   color,
   relativePosition,
-} from './lib';
-import { DEFAULT_FILL_COLOR } from './constants';
+  alignment,
+} from "./lib";
+import { DEFAULT_FILL_COLOR } from "./constants";
 
 function chrtLabels() {
   chrtObject.call(this);
   // console.log("HI WE ARE LABELS", this);
-  this.type = 'labels';
+  this.type = "labels";
   this.labels = [];
   // this.g = null;
   this.labelsFilter = () => true;
   this._alignment = null;
-  this.attr('fill', DEFAULT_FILL_COLOR);
+  this.attr("fill", DEFAULT_FILL_COLOR);
 
   this._offsets = [() => 0, () => 0];
 
   this.value = (field) => {
-    return this.attr('textField', field);
+    return this.attr("textField", field);
   };
 
   // this.position = (position) => {
@@ -41,8 +42,8 @@ function chrtLabels() {
       ? parentData
       : this.parentNode.parentNode._data || [];
 
-    const isBars = ~this.parentNode?.class().indexOf('chrt-bars');
-    const isColumns = ~this.parentNode?.class().indexOf('chrt-columns');
+    const isBars = ~this.parentNode?.class().indexOf("chrt-bars");
+    const isColumns = ~this.parentNode?.class().indexOf("chrt-columns");
 
     // remove old labels
     if (this.labels?.length) {
@@ -58,7 +59,6 @@ function chrtLabels() {
         this.labels = this.labels.filter((d) => d);
       }
     }
-
     data.forEach((label, i) => {
       if (this.labelsFilter && !this.labelsFilter(label, i, data)) {
         return;
@@ -67,40 +67,6 @@ function chrtLabels() {
         top: () => 0,
         left: () => 0,
       };
-      // the following code is never run, because _vposition and _hposition are never set
-      // console.log('this._vposition', this._vposition);
-      // const offsets = {
-      //   top: () => {
-      //     switch (this._vposition) {
-      //       case 'base':
-      //       case 'top':
-      //         return isBars ? -(this.parentNode.barWidth() || 0) / 2 : 0;
-      //       case 'bottom':
-      //         return isBars ? (this.parentNode.barWidth() || 0) / 2 : 5;
-      //       case 'center':
-      //       case 'middle':
-      //       default:
-      //         return 0;
-      //     }
-      //   },
-      //   left: () => {
-      //     const delta = isColumns
-      //       ? this.parentNode.getXScale().barwidth / 2
-      //       : 0;
-      //     switch (this._hposition) {
-      //       case 'base':
-      //         return isBars ? 5 : 0;
-      //       case 'start':
-      //       case 'left':
-      //         return isBars ? 5 : -delta;
-      //       case 'end':
-      //       case 'right':
-      //         return isBars ? -5 : delta;
-      //       default:
-      //         return 0;
-      //     }
-      //   },
-      // };
 
       if (!this.labels[i]) {
         this.labels[i] = chrtLabel();
@@ -110,20 +76,30 @@ function chrtLabels() {
 
       // console.log('now we I have', this.labels.length, 'labels')
 
-      const textFieldAccessor = this.attr('textField')(label, i, this.labels);
+      const textFieldAccessor = this.attr("textField")(label, i, this.labels);
       const textField = !isNull(textFieldAccessor)
         ? textFieldAccessor
         : label[this.parentNode.fields.y];
 
       const classNames = this.class();
       if (classNames.length) {
-        this.labels[i].class(classNames.join(' '));
+        this.labels[i].class(classNames.join(" "));
       }
+      // console.log("ANCHORPOINTS", label.anchorPoints);
       this.labels[i]
         .value(textField)
+        .datum(label)
         .anchor(
           label.anchorPoints
             ? Object.assign({}, label.anchorPoints, {
+                alignment: label.anchorPoints?.alignment
+                  ? {
+                      horizontal: () =>
+                        label.anchorPoints?.alignment?.horizontal ?? "middle",
+                      vertical: () =>
+                        label.anchorPoints?.alignment?.vertical ?? "top",
+                    }
+                  : null,
                 relativePosition:
                   this._rposition || label.anchorPoints.relativePosition,
               })
@@ -137,12 +113,12 @@ function chrtLabels() {
 
       if (this._alignment) {
         this.labels[i]
-          .align(this._alignment?.horizontal || 'middle')
-          .valign(this._alignment?.vertical || 'top');
+          .align(this._alignment?.horizontal || "middle")
+          .valign(this._alignment?.vertical || "top");
       }
 
-      this.labels[i].attr(this.attr('display')(label, i, data));
-
+      this.labels[i].attr(this.attr("display")(label, i, data));
+      // console.log("this._alignment", this._alignment);
       this.labels[i].draw();
     });
 
