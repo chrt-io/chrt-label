@@ -1,44 +1,44 @@
-import babel from '@rollup/plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
-import terser from '@rollup/plugin-terser';
-import meta from './package.json' assert { type: 'json'};
+import babel from "@rollup/plugin-babel";
+import commonjs from "rollup-plugin-commonjs";
+import resolve from "rollup-plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
+import meta from "./package.json" with { type: "json" };
 
 const STARTED = 2020;
 const YEAR = new Date().getFullYear();
 
 const config = {
-  input: 'src/index.js',
-  external: Object.keys(meta.dependencies || {}).filter(key =>
-    /^chrt-/.test(key)
+  input: "src/index.js",
+  external: Object.keys(meta.dependencies || {}).filter((key) =>
+    /^chrt-/.test(key),
   ),
   output: {
     file: `dist/${meta.name}.js`,
-    name: 'chrt',
-    format: 'umd',
+    name: "chrt",
+    format: "umd",
     indent: false,
     extend: true,
-    exports: 'named',
+    exports: "named",
     banner: `// ${meta.name} v${meta.version} Copyright ${
-      YEAR !== STARTED ? `${STARTED}-` : ''
+      YEAR !== STARTED ? `${STARTED}-` : ""
     }${YEAR} ${meta.author} ${meta.homepage}`,
     globals: Object.assign(
       {},
       ...Object.keys(meta.dependencies || {})
-        .filter(key => /^chrt-/.test(key))
-        .map(key => ({ [key]: 'chrt' }))
-    )
+        .filter((key) => /^chrt-/.test(key))
+        .map((key) => ({ [key]: "chrt" })),
+    ),
   },
   plugins: [
     commonjs(),
     resolve(),
     babel({
-      babelHelpers: 'bundled',
-      exclude: 'node_modules/**',
+      babelHelpers: "bundled",
+      exclude: "node_modules/**",
       // sourceMaps: "both",
-      babelrc: false
-    })
-  ]
+      babelrc: false,
+    }),
+  ],
 };
 
 export default [
@@ -47,24 +47,24 @@ export default [
     ...config,
     output: {
       ...config.output,
-      format: 'esm',
-      file: `dist/${meta.name}.esm.js`
+      format: "esm",
+      file: `dist/${meta.name}.esm.js`,
     },
-    plugins: [...config.plugins]
+    plugins: [...config.plugins],
   },
   {
     ...config,
     output: {
       ...config.output,
-      file: `dist/${meta.name}.min.js`
+      file: `dist/${meta.name}.min.js`,
     },
     plugins: [
       ...config.plugins,
       terser({
         output: {
-          preamble: config.output.banner
-        }
-      })
-    ]
-  }
+          preamble: config.output.banner,
+        },
+      }),
+    ],
+  },
 ];
