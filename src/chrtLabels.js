@@ -63,10 +63,10 @@ function chrtLabels() {
       if (this.labelsFilter && !this.labelsFilter(label, i, data)) {
         return;
       }
-      const offsets = {
-        top: () => 0,
-        left: () => 0,
-      };
+      // const offsets = {
+      //   top: () => 0,
+      //   left: () => 0,
+      // };
 
       if (!this.labels[i]) {
         this.labels[i] = chrtLabel();
@@ -86,9 +86,8 @@ function chrtLabels() {
         this.labels[i].class(classNames.join(" "));
       }
       // console.log("ANCHORPOINTS", label.anchorPoints);
+      this.labels[i].value(textField).datum(label);
       this.labels[i]
-        .value(textField)
-        .datum(label)
         .anchor(
           label.anchorPoints
             ? Object.assign({}, label.anchorPoints, {
@@ -106,10 +105,10 @@ function chrtLabels() {
             : null,
         )
         .offset(
-          (this._offsets[1]() ?? 0) + offsets.left(),
-          (this._offsets[0]() ?? 0) + offsets.top(),
+          this._offsets[1](label, i, this.labels) ?? 0, // + offsets.left(),
+          this._offsets[0](label, i, this.labels) ?? 0, // + offsets.top(),
         )
-        .color(this.color()(label, i, data));
+        .color(this.color()(label, i, this.labels));
 
       if (this._alignment) {
         this.labels[i]

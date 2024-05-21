@@ -1,5 +1,5 @@
-import * as chrt from 'chrt';
-import chrtLabels from '../../../src/chrtLabels';
+import * as chrt from "chrt";
+import chrtLabels from "../../../src/chrtLabels";
 
 const data = new Array(5).fill(1).map((d, i) => ({ x: i, y: i }));
 
@@ -17,15 +17,28 @@ export default async function (container) {
           x: d.x,
           y: d.y,
         }))
-        .add(chrtLabels().valign('middle').align('start').offset(-50, 10)),
+        .add(chrtLabels().valign("middle").align("start").offset(-50, 10)),
     )
     .add(
       chrt
         .points()
-        .data(data, (d) => ({
+        .data(data, (d, i) => ({
           x: d.x,
           y: d.y,
+          id: `point-${i}`,
         }))
-        .add(chrtLabels().valign('top').align('end').offset(50, -10)),
+        .add(
+          chrtLabels()
+            .valign("top")
+            .align("end")
+            .offset(
+              (d, i) => {
+                return 50;
+              },
+              (d, i) => {
+                return -10;
+              },
+            ),
+        ),
     );
 }
