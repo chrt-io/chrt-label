@@ -1,73 +1,238 @@
 # chrt-label
-Component to create labels on top of XY charts
 
-## How to build
+Component for creating and managing labels in chrt charts. Labels can be added automatically to chart elements (using `chrtLabels`) or manually positioned at specific coordinates (using `chrtLabel`). The module provides two main components:
 
-###  Install the dependencies
-```
-npm install
-```
+- `chrtLabels`: Automatically generates and positions labels for multiple data points
+- `chrtLabel`: Creates individual labels with specific positioning
 
-###  Build the package
-```
-npm build
-```
-### Developing
-If you want to develop and see the changes reloaded live into another app you can use the watch script
-```
-npm run watch
-```
+### Observable Examples and Documentation:
 
-## Use it as a module
+- [Introducing Chrt - Observable](https://observablehq.com/@chrt/introducing-chrt?collection=@chrt/chrt)
 
-### Method 1 - tgz package
+## Installing
 
-#### Use the tgz provided in the repository
-You can use the `chrt-label-VERSION.tgz` package. The following commands will expand the chrt module in the `node_modules` folder of your project. Ready to be used with the usual `import` command:
-```
-cp chrt-label-VERSION.tgz SOMEWHERE
-cd myproject
-npm install SOMEWHERE/chrt-label-VERSION.tgz
+For use with Webpack, Rollup, or other Node-based bundlers, `chrt-label` can be installed as a standalone module via a package manager such as Yarn or npm.
+
+```bash
+npm install chrt-label chrt-core
 ```
 
-#### Create a tgz npm package
-You can create a package for testing with
-```
-npm pack
-```
-This command will create a file called `chrt-label-VERSION.tgz` in the root folder of chrt.
+`chrt-label` can be used as part of the `chrt` package:
 
-### Method 2 - symlinked package
-
-####  Create a global node module
-```
-npm link
-```
-This creates `chrt-label` module inside your global `node_modules` so that you can import it
-
-####  Use the module in a different app
-```
-npm link chrt
-```
-This will create a sym link to the module created in your global.
-
-## Use it in your code
-After having installed or sym-linked the node you can use it as usual
-```
-import { chrtLabel } from 'chrt-label';
+```bash
+npm install chrt
 ```
 
+## Usage
 
+### ES6 / Bundlers (Webpack, Rollup, etc.)
 
-## Testing
+```js
+import Chrt from "chrt-core";
+import { chrtLabel, chrtLabels } from "chrt-label";
 
-### Unit test with Jest
-Run `npm run test` to run all the tests on the code with Jest.
+// Add automatic labels to points
+Chrt().add(
+  chrt
+    .chrtPoints()
+    .data(data)
+    .add(chrtLabels().value((d) => d.value)),
+);
+
+// Add a single manual label
+Chrt().add(chrt.columns().add(chrtLabel("United States").left("1970").top(14)));
 ```
-npm run test
+
+## API Reference
+
+### chrtLabels
+
+#### Creation and Data
+
+#### `chrtLabels()`
+
+Creates a new labels component that automatically generates labels for chart elements.
+
+```js
+// Basic labels
+chrtLabels().value((d) => d.value);
+
+// Filtered labels
+chrtLabels()
+  .filter((d) => d.value > 100)
+  .value((d) => d.value);
 ```
 
-To run only one test:
+#### `.value([accessor])`
+
+Sets the text content for labels using a data accessor function.
+
+```js
+// Use simple value
+chrtLabels().value((d) => d.value);
+
+// Format value
+chrtLabels().value((d) => `$${d.value.toFixed(2)}`);
 ```
-npx jest test/scales/scaleLinear.test.js
+
+#### Positioning and Alignment
+
+#### `.align([value])` / `.valign([value])`
+
+Sets horizontal and vertical alignment of labels.
+
+```js
+chrtLabels()
+  .align("start") // "start", "middle", "end"
+  .valign("middle"); // "top", "middle", "bottom"
+```
+
+#### `.offset([x, y])`
+
+Sets the offset of labels from their anchor points.
+
+```js
+// Fixed offset
+chrtLabels().offset(5, 0);
+
+// Dynamic offset
+chrtLabels().offset((d, i) => [i * 2, 0]);
+```
+
+#### Filtering Methods
+
+#### `.filter([condition])` / `.show([condition])`
+
+Controls which labels are displayed.
+
+```js
+// Show labels for specific values
+chrtLabels().filter((d) => d.value > 100);
+
+// Show labels based on index
+chrtLabels().filter((d, i) => i % 2 === 0);
+```
+
+#### `.firstLabel()` / `.lastLabel()`
+
+Shows only first or last label.
+
+```js
+// Show only first label
+chrtLabels().firstLabel();
+
+// Show only last label
+chrtLabels().lastLabel();
+```
+
+#### Styling
+
+#### `.color([value])` / `.fill([value])`
+
+Sets the color of labels.
+
+```js
+// Single color
+chrtLabels().color("#333333");
+
+// Color based on data
+chrtLabels().color((d) => (d.value > 100 ? "red" : "blue"));
+```
+
+### chrtLabel
+
+#### Creation and Text
+
+#### `chrtLabel(text)`
+
+Creates a single label with specified text.
+
+```js
+// Create label with text
+chrtLabel("United States").left("1970").top(14);
+```
+
+#### `.value(text)` / `.text(text)`
+
+Sets or updates the label text.
+
+```js
+chrtLabel().value("Label Text").color("#333");
+```
+
+#### Positioning
+
+#### `.position([x, y])` / `.left(value)` / `.top(value)`
+
+Sets the position of the label.
+
+```js
+// Using position
+chrtLabel("Text").position({ x: 100, y: 50 });
+
+// Using left/top
+chrtLabel("Text").left("1970").top(14);
+```
+
+#### Styling and Alignment
+
+#### `.align([value])` / `.valign([value])`
+
+Sets text alignment.
+
+```js
+chrtLabel("Text")
+  .align("start") // "start", "middle", "end"
+  .valign("middle"); // "top", "middle", "bottom"
+```
+
+#### `.color([value])` / `.fill([value])`
+
+Sets the color of the label.
+
+```js
+chrtLabel("Text").color("#ffffff").align("start");
+```
+
+### Examples
+
+#### Automatic Labels on Points
+
+```js
+Chrt().add(
+  chrt
+    .dotPlot()
+    .data(data)
+    .add(
+      chrtLabels()
+        .filter((d) => d.category === "A")
+        .value((d) => d.value.toFixed(1))
+        .offset(5, 0)
+        .align("start")
+        .valign("middle")
+        .color("#999"),
+    ),
+);
+```
+
+#### Mixed Manual and Automatic Labels
+
+```js
+Chrt().add(
+  chrt
+    .columns()
+    .data(data)
+    .add(
+      chrtLabels()
+        .value((d) => d.value)
+        .offset(0, -5),
+    )
+    .add(
+      chrtLabel("Maximum")
+        .left(maxX)
+        .top(maxY)
+        .align("middle")
+        .valign("bottom"),
+    ),
+);
 ```
