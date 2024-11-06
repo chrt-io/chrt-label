@@ -7,9 +7,6 @@
   "module": "src/index.js",
   "jsdelivr": "dist/chrt-label.min.js",
   "unpkg": "dist/chrt-label.min.js",
-  "engines": {
-    "node": ">=16"
-  },
   "exports": {
     "umd": "./dist/chrt-label.min.js",
     "default": "./dist/chrt-label.esm.js"
@@ -45,23 +42,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/chrt/chrt-label.git"
+    "url": "git+ssh://git@github.com/chrt-io/chrt-label.git"
   },
   "author": "chrt",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/chrt/chrt-label/issues"
+    "url": "https://github.com/chrt-io/chrt-label/issues"
   },
   "homepage": "chrt.io",
   "dependencies": {
-    "chrt-object": "0.0.17"
+    "chrt-object": "0.0.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
+    "@babel/core": "^7.24.7",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.24.1",
-    "@babel/plugin-transform-runtime": "^7.24.3",
-    "@babel/preset-env": "^7.24.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.24.7",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -69,8 +66,8 @@
     "babel-plugin-root-import": "^6.6.0",
     "babelify": "^10.0.0",
     "budo": "^11.8.4",
-    "chrt": "0.0.166",
-    "eslint": "^9.3.0",
+    "chrt": "0.0.168",
+    "eslint": "^9.5.0",
     "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",

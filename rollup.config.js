@@ -2,10 +2,7 @@ import babel from "@rollup/plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
 import resolve from "rollup-plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
-import meta from "./package.json" with { type: "json" };
-
-const STARTED = 2020;
-const YEAR = new Date().getFullYear();
+import meta from "./package.json" assert { type: "json" };
 
 const config = {
   input: "src/index.js",
@@ -19,9 +16,9 @@ const config = {
     indent: false,
     extend: true,
     exports: "named",
-    banner: `// ${meta.name} v${meta.version} Copyright ${
-      YEAR !== STARTED ? `${STARTED}-` : ""
-    }${YEAR} ${meta.author} ${meta.homepage}`,
+    banner: `// ${meta.name} v${
+      meta.version
+    } Copyright ${new Date().getFullYear()} ${meta.author}`,
     globals: Object.assign(
       {},
       ...Object.keys(meta.dependencies || {})
@@ -67,4 +64,13 @@ export default [
       }),
     ],
   },
+  // {
+  //   ...config,
+  //   output: {
+  //     ...config.output,
+  //     format: 'cjs',
+  //     file: `dist/${meta.name}.node.js`
+  //   },
+  //   plugins: [...config.plugins]
+  // },
 ];
